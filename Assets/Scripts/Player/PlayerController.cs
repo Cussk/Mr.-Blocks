@@ -4,13 +4,19 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        PlayerControls _playerControls;
-        Vector2 _moveInput;
+        const string ObstacleTag = "Obstacle";
+        const string FinishTag = "Finish";
+        
         [SerializeField] float speed = 5;
+        
+        PlayerControls _playerControls;
+        Rigidbody2D _rigidbody2D;
+        Vector2 _moveInput;
     
         void Awake()
         {
             _playerControls = new PlayerControls();
+            _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
         void OnEnable()
@@ -25,16 +31,41 @@ namespace Player
             _playerControls.Disable();
         }
     
-        void Update()
+        void FixedUpdate()
         {
             MovePlayer();
+        }
+        
+        void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag(ObstacleTag))
+            {
+                PlayerDied();
+            }
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag(FinishTag))
+            {
+                LevelComplete();
+            }
         }
 
         void MovePlayer()
         {
-            Vector3 moveDirection = new Vector3(_moveInput.x, _moveInput.y, 0);
-            Vector3 moveDelta = moveDirection * (speed * Time.deltaTime);
-            transform.position += moveDelta;
+            Vector2 newVelocity = new Vector2(_moveInput.x, _moveInput.y).normalized * speed;
+            _rigidbody2D.linearVelocity = newVelocity;
+        }
+
+        void PlayerDied()
+        {
+            Destroy(gameObject);
+        }
+        
+        void LevelComplete()
+        {
+            Debug.Log("LevelComplete");
         }
     }
 }
