@@ -27,9 +27,6 @@ namespace Level
             }
         }
 
-        public void RestartLevel()
-        {
-            SceneManager.LoadScene(_currentLevel);
-        }
+        public void RestartLevel() => SceneManager.LoadScene(_currentLevel);
     }
 }
