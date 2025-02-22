@@ -1,3 +1,4 @@
+using Level;
 using UnityEngine;
 
 namespace Player
@@ -9,12 +10,14 @@ namespace Player
         
         [SerializeField] float speed = 5;
         
+        LevelManager _levelManager;
         PlayerControls _playerControls;
         Rigidbody2D _rigidbody2D;
         Vector2 _moveInput;
     
         void Awake()
         {
+            _levelManager = new LevelManager();
             _playerControls = new PlayerControls();
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }
@@ -61,11 +64,12 @@ namespace Player
         void PlayerDied()
         {
             Destroy(gameObject);
+            _levelManager.RestartLevel();
         }
         
         void LevelComplete()
         {
-            Debug.Log("LevelComplete");
+            _levelManager.OnLevelComplete();
         }
     }
 }
