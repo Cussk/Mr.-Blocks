@@ -1,7 +1,6 @@
-using Level;
+using SceneManagement;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -11,18 +10,15 @@ namespace UI
         readonly GameObject _gameOverPanel;
         readonly TextMeshProUGUI _levelText;
         readonly TextMeshProUGUI _gameOverText;
-        
 
-        int _levelNumber;
-
-        public LevelUI(LevelReferences levelReference)
+        public LevelUI(LevelReferences levelReference, int currentLevel)
         {
             _levelPanel = levelReference.LevelPanel;
             _gameOverPanel = levelReference.GameOverPanel;
             _levelText = levelReference.LevelText;
             _gameOverText = levelReference.GameOverText;
             
-            UpdateLevelText();
+            UpdateLevelText(currentLevel);
         }
 
         public void ShowGameWinUI()
@@ -51,10 +47,9 @@ namespace UI
             _gameOverPanel.SetActive(isActive);
         }
 
-        void UpdateLevelText()
+        void UpdateLevelText(int levelNumber)
         {
-            _levelNumber = SceneManager.GetActiveScene().buildIndex;
-            _levelText.text = $"Level: {_levelNumber}";
+            _levelText.text = $"Level: {levelNumber}";
             ToggleLevelPanel(true);
         }
     }

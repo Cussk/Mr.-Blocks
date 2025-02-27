@@ -1,5 +1,4 @@
-using Level;
-using UI;
+using SceneManagement;
 using UnityEngine;
 
 namespace Player

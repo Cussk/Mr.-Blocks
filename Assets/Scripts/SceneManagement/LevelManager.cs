@@ -1,21 +1,22 @@
 using UI;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Level
+namespace SceneManagement
 {
     public class LevelManager
     {
+        const int MainMenuIndex = 0;
+        
+        readonly LevelUI _levelUI;
+        readonly Button _restartButton;
+        readonly Button _mainMenuButton;
         readonly int _currentLevel;
-        LevelUI _levelUI;
-        Button _restartButton;
-        Button _mainMenuButton;
     
         public LevelManager(LevelReferences levelReferences)
         {
             _currentLevel = SceneManager.GetActiveScene().buildIndex;
-            _levelUI = new LevelUI(levelReferences);
+            _levelUI = new LevelUI(levelReferences, _currentLevel);
             _restartButton = levelReferences.RestartButton;
             _mainMenuButton = levelReferences.MainMenuButton;
             ButtonAddListeners();
@@ -41,8 +42,11 @@ namespace Level
         void ButtonAddListeners()
         {
             _restartButton.onClick.AddListener(RestartLevel);
+            _mainMenuButton.onClick.AddListener(LoadMainMenu);
         }
 
-        public void RestartLevel() => SceneManager.LoadScene(_currentLevel);
+        void LoadMainMenu() => SceneManager.LoadScene(MainMenuIndex);
+
+        void RestartLevel() => SceneManager.LoadScene(_currentLevel);
     }
 }

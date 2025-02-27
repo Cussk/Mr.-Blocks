@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Level
+namespace SceneManagement
 {
     public class LevelReferences : MonoBehaviour
     {
