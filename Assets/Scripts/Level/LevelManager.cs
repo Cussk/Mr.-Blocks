@@ -1,15 +1,24 @@
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Level
 {
     public class LevelManager
     {
         readonly int _currentLevel;
+        LevelUI _levelUI;
+        Button _restartButton;
+        Button _mainMenuButton;
     
-        public LevelManager()
+        public LevelManager(LevelReferences levelReferences)
         {
             _currentLevel = SceneManager.GetActiveScene().buildIndex;
+            _levelUI = new LevelUI(levelReferences);
+            _restartButton = levelReferences.RestartButton;
+            _mainMenuButton = levelReferences.MainMenuButton;
+            ButtonAddListeners();
         }
     
         public void OnLevelComplete()
@@ -23,8 +32,15 @@ namespace Level
             }
             else
             {
-                Debug.Log("You've beaten all the levels");
+                _levelUI.ShowGameWinUI();
             }
+        }
+        
+        public void OnPlayerDied() => _levelUI.ShowGameLoseUI();
+        
+        void ButtonAddListeners()
+        {
+            _restartButton.onClick.AddListener(RestartLevel);
         }
 
         public void RestartLevel() => SceneManager.LoadScene(_currentLevel);

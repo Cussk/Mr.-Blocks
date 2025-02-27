@@ -1,4 +1,5 @@
 using Level;
+using UI;
 using UnityEngine;
 
 namespace Player
@@ -8,6 +9,7 @@ namespace Player
         const string ObstacleTag = "Obstacle";
         const string FinishTag = "Finish";
         
+        [SerializeField] LevelReferences levelReferences;
         [SerializeField] float speed = 5;
         
         LevelManager _levelManager;
@@ -17,7 +19,7 @@ namespace Player
     
         void Awake()
         {
-            _levelManager = new LevelManager();
+            _levelManager = new LevelManager(levelReferences);
             _playerControls = new PlayerControls();
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }
@@ -51,7 +53,7 @@ namespace Player
         {
             if (other.gameObject.CompareTag(FinishTag))
             {
-                LevelComplete();
+                _levelManager.OnLevelComplete();
             }
         }
 
@@ -64,12 +66,7 @@ namespace Player
         void PlayerDied()
         {
             Destroy(gameObject);
-            _levelManager.RestartLevel();
-        }
-        
-        void LevelComplete()
-        {
-            _levelManager.OnLevelComplete();
+            _levelManager.OnPlayerDied();
         }
     }
 }
