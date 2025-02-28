@@ -8,6 +8,7 @@ namespace UI
     {
         readonly GameObject _levelPanel;
         readonly GameObject _gameOverPanel;
+        readonly GameObject _restartButtonGameObject;
         readonly TextMeshProUGUI _levelText;
         readonly TextMeshProUGUI _gameOverText;
 
@@ -15,6 +16,7 @@ namespace UI
         {
             _levelPanel = levelReference.LevelPanel;
             _gameOverPanel = levelReference.GameOverPanel;
+            _restartButtonGameObject = levelReference.RestartButton.gameObject;
             _levelText = levelReference.LevelText;
             _gameOverText = levelReference.GameOverText;
             
@@ -24,6 +26,7 @@ namespace UI
         public void ShowGameWinUI()
         {
             ToggleGameOverPanel(true);
+            _restartButtonGameObject.SetActive(false);
             _gameOverText.text = "Game Completed!!";
             _gameOverText.color = Color.green;
             ToggleLevelPanel(false);
@@ -32,6 +35,7 @@ namespace UI
         public void ShowGameLoseUI()
         {
             ToggleGameOverPanel(true);
+            
             _gameOverText.text = "Game Over!!";
             _gameOverText.color = Color.red;
             ToggleLevelPanel(false);

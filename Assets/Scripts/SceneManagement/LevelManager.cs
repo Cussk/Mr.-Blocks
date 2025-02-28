@@ -28,7 +28,7 @@ namespace SceneManagement
         public void OnLevelComplete()
         {
             int nextLevel = _currentLevel + 1;
-            int maxLevel = SceneManager.sceneCountInBuildSettings;
+            int maxLevel = SceneManager.sceneCountInBuildSettings - 1;
 
             if (nextLevel <= maxLevel)
             {

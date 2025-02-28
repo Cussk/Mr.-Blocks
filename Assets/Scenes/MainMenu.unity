@@ -346,6 +346,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1807624188643438444, guid: dedfa5882f00a3c4b93ef04097a74215, type: 3}
+      propertyPath: m_Volume
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 2075723618144607344, guid: dedfa5882f00a3c4b93ef04097a74215, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -385,6 +389,10 @@ PrefabInstance:
     - target: {fileID: 2075723618144607344, guid: dedfa5882f00a3c4b93ef04097a74215, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5550264966054435388, guid: dedfa5882f00a3c4b93ef04097a74215, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
