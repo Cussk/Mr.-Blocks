@@ -1,3 +1,4 @@
+using Sound;
 using UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,14 +8,16 @@ namespace SceneManagement
     public class LevelManager
     {
         const int MainMenuIndex = 0;
-        
+
+        readonly SoundManager _soundManager;
         readonly LevelUI _levelUI;
         readonly Button _restartButton;
         readonly Button _mainMenuButton;
         readonly int _currentLevel;
     
-        public LevelManager(LevelReferences levelReferences)
+        public LevelManager(LevelReferences levelReferences, SoundManager soundManager)
         {
+            _soundManager = soundManager;
             _currentLevel = SceneManager.GetActiveScene().buildIndex;
             _levelUI = new LevelUI(levelReferences, _currentLevel);
             _restartButton = levelReferences.RestartButton;
@@ -45,8 +48,17 @@ namespace SceneManagement
             _mainMenuButton.onClick.AddListener(LoadMainMenu);
         }
 
-        void LoadMainMenu() => SceneManager.LoadScene(MainMenuIndex);
+        void LoadMainMenu()
+        {
+            _soundManager.PlayButtonClickAudio();
+            _soundManager.DestroySoundManager();
+            SceneManager.LoadScene(MainMenuIndex);
+        }
 
-        void RestartLevel() => SceneManager.LoadScene(_currentLevel);
+        void RestartLevel()
+        {
+            _soundManager.PlayButtonClickAudio();
+            SceneManager.LoadScene(_currentLevel);
+        }
     }
 }
